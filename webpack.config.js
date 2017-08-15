@@ -1,21 +1,32 @@
-module.exports = {
-	entry: {
-		app: './main.ts'
-	},
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-	resolve: {
-		extensions: ['.ts','.js']
-	},
-	
-	module: {
-        rules: [
-            {
+module.exports = {
+    entry: {
+        app: './main.ts'
+    },
+
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
+
+    module: {
+        rules: [{
                 test: /\.ts$/,
                 loaders: ['awesome-typescript-loader']
+            },
+            {
+                test: /\.scss$/,
+                loaders: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+            },
+            {
+                test: /\.css$/,
+                loaders: ExtractTextPlugin.extract(['css-loader'])
             }
         ]
     },
-	output: {
-		filename: 'bundle.js'
-	}
+    plugins: [new ExtractTextPlugin('bundle.css')],
+
+    output: {
+        filename: 'bundle.js'
+    }
 };

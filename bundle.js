@@ -21027,7 +21027,11 @@ exports.subscribeToResult = subscribeToResult;
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
-	return new Promise(function(resolve, reject) { reject(new Error("Cannot find module '" + req + "'.")); });
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
 }
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
@@ -58200,14 +58204,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
 var platform_browser_1 = __webpack_require__(9);
 var forms_1 = __webpack_require__(46);
-var app_component_1 = __webpack_require__(52);
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../node_modules/bootstrap/dist/css/\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var app_component_1 = __webpack_require__(53);
+var header_component_1 = __webpack_require__(54);
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
@@ -64679,7 +64685,8 @@ var MapSubscriber = (function (_super) {
 //# sourceMappingURL=map.js.map
 
 /***/ }),
-/* 52 */
+/* 52 */,
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64699,12 +64706,40 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<label>Enter name:</label>\n\t\t\t   <input [(ngModel)]=\"name\" placeholder=\"name\">\n\t\t\t   <h1>Hello, {{name}}! Welcome to Angular development!</h1>"
+            template: "<app-header></app-header>\n\t\t\t   <label>Enter name:</label>\n\t\t\t   <input [(ngModel)]=\"name\" placeholder=\"name\">\n\t\t\t   <h1>Hello, {{name}}! Welcome to Angular development!</h1>"
         })
     ], AppComponent);
     return AppComponent;
 }());
 exports.AppComponent = AppComponent;
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(1);
+var HeaderComponent = (function () {
+    function HeaderComponent() {
+    }
+    HeaderComponent = __decorate([
+        core_1.Component({
+            selector: 'app-header',
+            template: "<div [ngStyle]=\"{class: row}\">\n                <div [ngStyle]=\"{class: col-sm-6}\">Home</div>\n                <div [ngStyle]=\"{class: col-sm-6}\">Collections</div>\n            </div>"
+        })
+    ], HeaderComponent);
+    return HeaderComponent;
+}());
+exports.HeaderComponent = HeaderComponent;
 
 
 /***/ })

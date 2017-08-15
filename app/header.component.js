@@ -7,17 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'world';
+var HeaderComponent = (function () {
+    function HeaderComponent() {
     }
-    AppComponent = __decorate([
+    HeaderComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "<app-header></app-header>\n\t\t\t   <label>Enter name:</label>\n\t\t\t   <input [(ngModel)]=\"name\" placeholder=\"name\">\n\t\t\t   <h1>Hello, {{name}}! Welcome to Angular development!</h1>"
+            selector: 'app-header',
+            template: "<div [ngStyle]=\"{class: row}\">\n                <div [ngStyle]=\"{class: col-sm-6}\">Home</div>\n                <div [ngStyle]=\"{class: col-sm-6}\">Collections</div>\n            </div>"
         })
-    ], AppComponent);
-    return AppComponent;
+    ], HeaderComponent);
+    return HeaderComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.HeaderComponent = HeaderComponent;
+//# sourceMappingURL=header.component.js.map
